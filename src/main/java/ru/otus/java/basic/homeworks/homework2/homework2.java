@@ -1,9 +1,8 @@
-package ru.otus.java.basic.homeworks;
+package ru.otus.java.basic.homeworks.homework2;
 
 import java.util.Arrays;
 
 public class homework2 {
-
     public static void main(String[] args) {
         //ДЗ 1
         //printStringMultipleTimes(3, "Hello Java");
@@ -132,5 +131,4 @@ public class homework2 {
         }
         return result;
     }
-
 }
