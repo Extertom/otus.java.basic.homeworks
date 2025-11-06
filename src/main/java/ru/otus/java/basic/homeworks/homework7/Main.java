@@ -3,48 +3,27 @@ package ru.otus.java.basic.homeworks.homework7;
 public class Main {
     public static void main(String[] args) {
         Human human = new Human("Иван");
-        Car car = new Car("Жигули", 50.0, 0.1);
-        Horse horse = new Horse("Буцефал", 100, 150);
-        Bicycle bicycle = new Bicycle("Горный", 80, 420);
-        AllTerrainVehicle allTerrainVehicle = new AllTerrainVehicle("Вездеход-1", 70.0, 0.15);
+        Transport car = new Car("Жигули", 50.0, 0.1);
+        Transport horse = new Horse("Буцефал", 100, 3);
+        Transport bicycle = new Bicycle("Горный", 80, 2);
+        Transport atv = new AllTerrainVehicle("Вездеход-1", 70.0, 0.15);
 
-        human.printStatus();
-        human.move(5, TerrainType.PLAIN);
+        Transport[] transports = {car, horse, bicycle, atv};
+        for (Transport transport : transports) {
+            System.out.println("\n--- " + transport.getName() + " ---");
+            human.mount(transport);
 
-        System.out.println("\n============Используем машину==========");
-        human.mount(car);
-        human.printStatus();
+            boolean plainResult = human.move(10, TerrainType.PLAIN);
+            boolean forestResult = human.move(10, TerrainType.DENSE_FOREST);
+            boolean swampResult = human.move(10, TerrainType.SWAMP);
 
-        human.move(100, TerrainType.PLAIN);
-        human.move(50, TerrainType.DENSE_FOREST);
-        human.move(200, TerrainType.PLAIN);
+            System.out.println("Результаты для " + transport.getName() + ":");
+            System.out.println(" - Равнина: " + (plainResult ? "Выполнено" : "Неудачно"));
+            System.out.println(" - Лес: " + (forestResult ? "Выполнено" : "Неудачно"));
+            System.out.println(" - Болото: " + (swampResult ? "Выполнено" : "Неудачно"));
 
-        car.refuel(30);
-        human.dismount();
+            human.dismount();
 
-        System.out.println("\n===============Используем лошадь===================");
-        human.mount(horse);
-        human.move(1, TerrainType.DENSE_FOREST);
-        human.move(3, TerrainType.SWAMP);
-        human.printStatus();
-        horse.rest();
-        human.dismount();
-
-        System.out.println("\n=============Используем велосипед==============");
-        human.mount(bicycle);
-        human.move(5, TerrainType.PLAIN);
-        human.move(3, TerrainType.DENSE_FOREST);
-        human.printStatus();
-        bicycle.rest();
-        human.dismount();
-
-        System.out.println("\n==============Используем вездеход=================");
-        human.mount(allTerrainVehicle);
-        human.move(50, TerrainType.PLAIN);
-        human.move(30, TerrainType.DENSE_FOREST);
-        human.move(20, TerrainType.SWAMP);
-        human.printStatus();
-        allTerrainVehicle.refuel(20.25);
-        human.printStatus();
+        }
     }
 }

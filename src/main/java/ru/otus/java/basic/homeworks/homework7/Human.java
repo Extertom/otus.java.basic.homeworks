@@ -27,11 +27,12 @@ public class Human {
         currentTransport = null;
     }
 
-    public void move(int distance, TerrainType terrain) {
-        System.out.println("\n--- " + name + " пытается переместиться на " + distance + "км. по " + terrain.getDescription() + " ---");
-        if (currentTransport == null) {
-            System.out.println(name + " прошел " + distance + " км.пешком по  " + terrain.getDescription());
+    public boolean move(int distance, TerrainType terrain) {
+        System.out.println("\n--- " + name + " пытается переместиться на " + distance + " км по " + terrain.getDescription() + " ---");
 
+        if (currentTransport == null) {
+            System.out.println(name + " прошел " + distance + " км пешком по " + terrain.getDescription());
+            return true;
         } else {
             boolean success = currentTransport.move(distance, terrain);
             if (success) {
@@ -39,15 +40,11 @@ public class Human {
             } else {
                 System.out.println(name + " не смог переместиться на " + currentTransport.getName());
             }
+            return success;
         }
     }
 
-    public void printStatus() {
-        System.out.println("\n--- Статус " + name + " ---");
-        if (currentTransport == null) {
-            System.out.println("Пешком, без транспорта");
-        } else {
-            System.out.println("На транспорте: " + currentTransport.getStatus());
-        }
+    public String getName() {
+        return name;
     }
 }

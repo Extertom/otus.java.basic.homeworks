@@ -1,43 +1,42 @@
 package ru.otus.java.basic.homeworks.homework7;
 
-public class Bicycle extends Transport {
+public class Bicycle extends AbstractTransport{
     private int riderStamina;
     private final int maxRiderStamina;
     private final int staminaConsumption;
 
-    public Bicycle(String name, int staminaConsumption, int maxRiderStamina) {
+    public Bicycle(String name, int maxRiderStamina, int staminaConsumption) {
         super(name);
-        this.staminaConsumption = staminaConsumption;
         this.maxRiderStamina = maxRiderStamina;
         this.riderStamina = maxRiderStamina;
+        this.staminaConsumption = staminaConsumption;
     }
 
     @Override
     public boolean move(int distance, TerrainType terrain) {
         if (terrain == TerrainType.SWAMP) {
-            System.out.println("Велосипед " + name + " не может перемещаться по " + terrain.getDescription());
+            System.out.println("Велосипед " + getName() + " не может перемещаться по " + terrain.getDescription());
             return false;
         }
-        int requiredStamina = distance * staminaConsumption;
-        int consumptionMultiplier = (terrain == TerrainType.DENSE_FOREST) ? 2 : 1;
-        int actualConsumption = requiredStamina * consumptionMultiplier;
 
-        if (riderStamina < actualConsumption) {
-            System.out.println("Велосипедист слишком устал. Нужно сил: " + actualConsumption + " имеется: " + riderStamina);
+        int consumptionMultiplier = (terrain == TerrainType.DENSE_FOREST) ? 2 : 1;
+        int requiredStamina = distance * staminaConsumption * consumptionMultiplier;
+
+        if (riderStamina < requiredStamina) {
+            System.out.println("Велосипедист слишком устал. Нужно сил: " +
+                    requiredStamina + ", имеется: " + riderStamina);
             return false;
         }
-        riderStamina -= actualConsumption;
-        System.out.println("Велосипед " + name + " проехал " + distance + "км. по " + terrain.getDescription() + ". Потрачено сил: " + actualConsumption + " Осталось сил: " + riderStamina);
+
+        riderStamina -= requiredStamina;
+        System.out.println("Велосипед " + getName() + " проехал " + distance +
+                " км по " + terrain.getDescription() + ". Потрачено сил: " +
+                requiredStamina + ". Осталось сил: " + riderStamina);
         return true;
     }
 
     @Override
     public String getStatus() {
-        return "Велосипед " + name + ", силы всадника: " + riderStamina + "/" + maxRiderStamina;
-    }
-
-    public void rest() {
-        riderStamina = maxRiderStamina;
-        System.out.println("Велосипедист отдохнул. Силы восстановлены: " + riderStamina + "/" + maxRiderStamina);
+        return "Велосипед " + getName() + ", силы всадника: " + riderStamina + "/" + maxRiderStamina;
     }
 }
