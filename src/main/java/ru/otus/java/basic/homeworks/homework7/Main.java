@@ -2,10 +2,11 @@ package ru.otus.java.basic.homeworks.homework7;
 
 public class Main {
     public static void main(String[] args) {
-        Human human = new Human("Иван");
+        Human human = new Human("Иван",80);
+
         Transport car = new Car("Жигули", 50.0, 0.1);
         Transport horse = new Horse("Буцефал", 100, 3);
-        Transport bicycle = new Bicycle("Горный", 80, 2);
+        Transport bicycle = new Bicycle("Горный");
         Transport atv = new AllTerrainVehicle("Вездеход-1", 70.0, 0.15);
 
         Transport[] transports = {car, horse, bicycle, atv};
@@ -26,4 +27,5 @@ public class Main {
 
         }
     }
+
 }

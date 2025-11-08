@@ -1,6 +1,6 @@
 package ru.otus.java.basic.homeworks.homework7;
 
-public class AllTerrainVehicle extends AbstractTransport{
+public class AllTerrainVehicle extends AbstractTransport {
     private double fuel;
     private final double maxFuel;
     private final double fuelConsumption;
@@ -14,7 +14,12 @@ public class AllTerrainVehicle extends AbstractTransport{
 
     @Override
     public boolean move(int distance, TerrainType terrain) {
-        double terrainMultiplier = getTerrainMultiplier(terrain);
+        double terrainMultiplier = switch (terrain) {
+            case SWAMP -> 2.0;
+            case DENSE_FOREST -> 1.5;
+            case PLAIN -> 1.0;
+        };
+
         double requiredFuel = distance * fuelConsumption * terrainMultiplier;
 
         if (fuel < requiredFuel) {
@@ -35,11 +40,4 @@ public class AllTerrainVehicle extends AbstractTransport{
         return "Вездеход " + getName() + ", топливо: " + fuel + "/" + maxFuel + "л";
     }
 
-    private double getTerrainMultiplier(TerrainType terrain) {
-        return switch (terrain) {
-            case SWAMP -> 2.0;
-            case DENSE_FOREST -> 1.5;
-            case PLAIN -> 1.0;
-        };
-    }
 }
