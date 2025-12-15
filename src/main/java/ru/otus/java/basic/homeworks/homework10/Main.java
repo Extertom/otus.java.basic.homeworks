@@ -5,6 +5,7 @@ public class Main {
         PhoneBook book = new PhoneBook();
         book.add("Иванов Иван", "111-111");
         book.add("Иванов Иван", "222-222");
+        book.add("Тимофеев Игорь","888-888");
         book.add("Петров Петр", "333-333");
 
         System.out.println(book.find("Иванов Иван"));
