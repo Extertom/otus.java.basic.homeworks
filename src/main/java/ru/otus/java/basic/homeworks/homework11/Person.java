@@ -11,10 +11,6 @@ class Person {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Position getPosition() {
         return position;
     }

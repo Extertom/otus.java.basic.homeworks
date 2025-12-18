@@ -4,30 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 class PersonDataBase {
-    private final Map<Long, Person> idMap = new HashMap<>();
-    private final Map<Long, Boolean> managerCache = new HashMap<>();
+    private final Map<Long, Person> persons = new HashMap<>();
 
     public Person findById(Long id) {
-        return idMap.get(id);
+        return persons.get(id);
     }
 
     public void add(Person person) {
-        if (person == null || person.getId() == null) return;
-
-        idMap.put(person.getId(), person);
-        managerCache.put(person.getId(), isManagerPosition(person.getPosition()));
+        persons.put(person.getId(), person);
     }
 
     public boolean isManager(Person person) {
-        if (person == null || person.getId() == null) return false;
-        Boolean result = managerCache.get(person.getId());
-        return result != null && result;
+        Person p = persons.get(person.getId());
+        return p != null && isManagerPosition(p.getPosition());
     }
 
     public boolean isEmployee(Long id) {
-        if (id == null) return false;
-        Boolean result = managerCache.get(id);
-        return result != null && !result;
+        Person p = persons.get(id);
+        return p != null && !isManagerPosition(p.getPosition());
     }
 
     private boolean isManagerPosition(Position pos) {
